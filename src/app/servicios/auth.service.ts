@@ -4,6 +4,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import { BehaviorSubject } from 'rxjs';
+import { Usuario } from '../clases/Usuario';
+import { UsuariosService } from './usuarios.service';
 
 
 @Injectable({
@@ -11,12 +13,13 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
 
+
 email: string;
 nuevoUsuario: any;
 @Input() logueado: boolean;
 error: string;
 
-public eventAuthError = new BehaviorSubject<string>('');
+public eventAuthError = new BehaviorSubject<boolean>(true);
 public eventAuthErrors = this.eventAuthError.asObservable();
 
   constructor(
@@ -25,8 +28,12 @@ public eventAuthErrors = this.eventAuthError.asObservable();
     private router: Router) {
    }
 
+RetornarEmail() {
+  return this.email;
+}
 
-CrearUsuario(user) {
+
+CrearUsuario(user: Usuario) {
    this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
   .then( credenciales => {
     this.nuevoUsuario = user;
@@ -38,8 +45,16 @@ CrearUsuario(user) {
   });
 }
 
-Login(email: string, password: string) {
-  this.afAuth.auth.signInWithEmailAndPassword(email, password)
+ Login(user: Usuario) {
+
+  this.afAuth.auth.signInWithCredential(function(cre) {
+       if (userCredential) {
+
+       }
+
+  });
+
+  this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
   .catch(error => {
     this.eventAuthError.next(error);
     Swal.fire({
@@ -51,7 +66,7 @@ Login(email: string, password: string) {
   })
   .then(userCredential => {
     if (userCredential) {
-    this.router.navigate(['/Materia']);
+    this.router.navigate(['/Administrador']);
   }
   });
 
@@ -59,6 +74,7 @@ Login(email: string, password: string) {
 
 
 Logout() {
+  this.eventAuthError.next(false);
   return this.afAuth.auth.signOut();
 }
 

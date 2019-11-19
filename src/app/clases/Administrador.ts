@@ -1,5 +1,6 @@
 export class Administrador {
 key: string;
-nombre: string;
+password: string;
 email: string;
+tipoUsuario: string;
 }

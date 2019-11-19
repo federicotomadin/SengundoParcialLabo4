@@ -43,7 +43,7 @@
                 <input type="password" placeholder="Acá la clave" [(ngModel)]="usuario.password" name="password" minlength="6" required>
 
                 <label><b>Tipo de Usuario</b></label><br>
-                <span *ngIf="f.submitted && f.controls['email'].errors" class="text-danger animated fadeIn">Tipo de usuario</span>
+                <span *ngIf="f.submitted && f.controls['tipoUsuario'].errors" class="text-danger animated fadeIn">Tipo de usuario</span>
                 <select class="custom-select custom-select-lg col-md-3" name="tipoUsuario" [(ngModel)]="usuario.TipoUsuario" id="">
                         <option value="0" selected>Administrador</option>
                         <option value="1">Profesor</option>

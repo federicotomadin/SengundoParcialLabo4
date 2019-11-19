@@ -32,9 +32,7 @@ export class LoginComponent implements OnInit {
     }
     this.authUser.eventAuthErrors.subscribe( data => {
     this.authError = data;
-
-    console.log(this.authUser.eventAuthErrors);
-  });
+      });
   }
 
 
@@ -62,11 +60,12 @@ export class LoginComponent implements OnInit {
     Swal.fire({
  allowOutsideClick: false,
  type: 'info',
- text: 'Ingresando...'
+ text: 'Ingresando...',
+ timer: 1500
 });
     Swal.showLoading();
 
-    this.authUser.Login(form.value.email, form.value.password);
+    this.authUser.Login(form.value);
 
     if (this.recordarme = true) {
     localStorage.setItem('email', this.usuario.email);

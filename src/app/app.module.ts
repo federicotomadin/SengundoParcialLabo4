@@ -31,6 +31,7 @@ import { ɵNgClassImplProvider__POST_R3__ } from '@angular/common';
 import { MiCaptchaComponent } from './utils/mi-captcha/mi-captcha.component';
 import { QRCodeModule } from 'angular2-qrcode';
 import { UtilsModule } from './utils/utils';
+import { MenuComponent } from './componentes/menu/menu.component';
 
 
 
@@ -44,7 +45,8 @@ import { UtilsModule } from './utils/utils';
     AlumnoComponent,
     ProfesorComponent,
     MateriaComponent,
-    ErrorComponent
+    ErrorComponent,
+    MenuComponent
      ],
   imports: [
     FormsModule,

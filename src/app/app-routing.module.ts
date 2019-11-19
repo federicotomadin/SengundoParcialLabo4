@@ -8,6 +8,8 @@ import { ProfesorComponent } from './componentes/profesor/profesor.component';
 import { AlumnoComponent } from './componentes/alumno/alumno.component';
 import { AdministradorComponent } from './componentes/administrador/administrador.component';
 import { ErrorComponent } from './componentes/error/error.component';
+import { AuthGuard } from './auth.guard';
+
 
 // import { PrincipalComponent } from '../componentes/principal/principal.component';
 // import { AgilidadAritmeticaComponent } from '../componentes/agilidad-aritmetica/agilidad-aritmetica.component';
@@ -33,6 +35,8 @@ const MiRuteo = [
   {path: 'Profesor' , component: ProfesorComponent},
   {path: 'Materia' , component: MateriaComponent},
   {path: 'Alumno' , component: AlumnoComponent},
+
+  // , canActivate: [ AuthGuard ]
   
   // { path: 'Juegos' , component: JuegosComponent,
   // children:

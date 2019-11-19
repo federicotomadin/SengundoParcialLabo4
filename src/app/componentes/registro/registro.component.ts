@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { FirebaseStorageService } from '../../servicios/firebase-storage.service';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/clases/Usuario';
+import { UsuariosService } from 'src/app/servicios/usuarios.service';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class RegistroComponent implements OnInit {
   urlPublica: string;
 
   constructor(private authUser: AuthService, private router: Router,
-              private serviceFireStorage: FirebaseStorageService) {
+              private serviceFireStorage: FirebaseStorageService,
+              private usuarioService: UsuariosService) {
 
    }
 
@@ -27,7 +29,9 @@ export class RegistroComponent implements OnInit {
   }
 
   CreareUsuario(frm) {
-    this.authUser.CrearUsuario(frm.value);
+      this.usuarioService.createUsuario(frm.value);
+
+    // this.authUser.CrearUsuario(frm.value);
 }
 
 ngSubmit(form: NgForm) {
@@ -41,7 +45,8 @@ ngSubmit(form: NgForm) {
       timer: 1500
     });
     // Swal.showLoading();
-  this.authUser.CrearUsuario(this.usuario);
+  this.usuarioService.createUsuario(form.value);
+  // this.authUser.CrearUsuario(this.usuario);
   this.router.navigate(['/Login']);
 
   }
