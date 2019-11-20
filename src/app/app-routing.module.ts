@@ -29,15 +29,14 @@ import { AuthGuard } from './auth.guard';
 
 const MiRuteo = [
   {path: '' , component: LoginComponent},
-  {path: 'Login' , component: LoginComponent},
+  {path: 'Login' , component: LoginComponent, canActivate: [AuthGuard]},
   {path: 'Registro' , component: RegistroComponent},
-  {path: 'Administrador' , component: AdministradorComponent},
+  {path: 'Administrador' , component: AdministradorComponent, canActivate: [AuthGuard]},
   {path: 'Profesor' , component: ProfesorComponent},
   {path: 'Materia' , component: MateriaComponent},
   {path: 'Alumno' , component: AlumnoComponent},
 
   // , canActivate: [ AuthGuard ]
-  
   // { path: 'Juegos' , component: JuegosComponent,
   // children:
   //      [{path: '' , component: MenuCardComponent},

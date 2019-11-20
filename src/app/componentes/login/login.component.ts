@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   captchaLogin = 'vacio';
   vCardData = 'codigo qr vacio';
   authError: any;
+  logueado: string;
 
   constructor(private authUser: AuthService, private router: Router) { }
 
@@ -59,9 +60,9 @@ export class LoginComponent implements OnInit {
 
     Swal.fire({
  allowOutsideClick: false,
- type: 'info',
+ icon: 'info',
  text: 'Ingresando...',
- timer: 1500
+ timer: 2000
 });
     Swal.showLoading();
 

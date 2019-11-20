@@ -1,4 +1,4 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable, Input, Output, EventEmitter } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router} from '@angular/router';
@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { BehaviorSubject } from 'rxjs';
 import { Usuario } from '../clases/Usuario';
 import { UsuariosService } from './usuarios.service';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 
 @Injectable({
@@ -13,11 +14,10 @@ import { UsuariosService } from './usuarios.service';
 })
 export class AuthService {
 
-
 email: string;
 nuevoUsuario: any;
-@Input() logueado: boolean;
 error: string;
+@Output() logueado = new EventEmitter<string>();
 
 public eventAuthError = new BehaviorSubject<boolean>(true);
 public eventAuthErrors = this.eventAuthError.asObservable();
@@ -25,34 +25,23 @@ public eventAuthErrors = this.eventAuthError.asObservable();
   constructor(
     private afAuth: AngularFireAuth,
     private db: AngularFirestore,
-    private router: Router) {
+    private dbBase: AngularFireDatabase,
+    private router: Router,
+    private usuarioService: UsuariosService) {
    }
 
-RetornarEmail() {
-  return this.email;
+FuncionLoguear(log?: string) {
+  return this.logueado.emit(log);
 }
-
 
 CrearUsuario(user: Usuario) {
    this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
-  .then( credenciales => {
-    this.nuevoUsuario = user;
-
-    credenciales.user.updateProfile({
-      displayName: user.email
-    });
-
+  .then( resp => {
+    this.usuarioService.createUsuario(user, resp.user.uid);
   });
 }
 
  Login(user: Usuario) {
-
-  this.afAuth.auth.signInWithCredential(function(cre) {
-       if (userCredential) {
-
-       }
-
-  });
 
   this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
   .catch(error => {
@@ -60,24 +49,20 @@ CrearUsuario(user: Usuario) {
     Swal.fire({
       allowOutsideClick: false,
       icon: 'error',
-      text: 'Credenciales Incorrectas'
+      text: 'Credenciales Incorrectas',
+      timer: 2000
      });
-
   })
   .then(userCredential => {
     if (userCredential) {
-    this.router.navigate(['/Administrador']);
-  }
-  });
 
-  }
-
+  this.router.navigate(['/Administrador']);
+ }
+});
+ }
 
 Logout() {
   this.eventAuthError.next(false);
   return this.afAuth.auth.signOut();
 }
-
-
-
 }

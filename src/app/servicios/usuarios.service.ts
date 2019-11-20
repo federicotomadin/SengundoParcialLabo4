@@ -11,60 +11,44 @@ import { Usuario } from '../clases/Usuario';
 })
 export class UsuariosService {
 
-  private dbPathAlumno = '/Alumno';
-  private dbPathProfesor = '/Profesor';
-  private dbPathAdministrador = '/Administrador';
+  private dbPathUsuario = '/Usuario';
 
-  RefAlumno: AngularFireList<Alumno> = null;
-  RefProfesor: AngularFireList<Profesor> = null;
-  RefAdministrador: AngularFireList<Administrador> = null;
+  RefUsuario: AngularFireList<Usuario> = null;
 
   constructor(private db: AngularFireDatabase) {
-    this.RefAlumno = db.list(this.dbPathAlumno);
-    this.RefProfesor = db.list(this.dbPathProfesor);
-    this.RefAdministrador = db.list(this.dbPathAdministrador);
+    this.RefUsuario = db.list(this.dbPathUsuario);
   }
 
 
-  getAlumno() {
-    return this.RefAlumno = this.db.list('alumno');
+  getUsuario() {
+    return this.RefUsuario = this.db.list('usuario');
   }
 
-  createAlumno(usuario: Usuario): void {
-    const alumno = new Alumno();
-    if (usuario.tipoUsuario === 'Alumno') {
-   alumno.email = usuario.email;
-   alumno.password = usuario.password;
-   }
-    this.RefAlumno.push(alumno);
-
-  }
-
-  createUsuario(user: Usuario): void {
+  createUsuario(user: Usuario, uid: string): void {
     if (user.tipoUsuario === '0') {
-      const administrador = new Administrador();
-      administrador.email = user.email;
-      administrador.password = user.password;
-      administrador.tipoUsuario = user.tipoUsuario;
-      this.RefAdministrador.push(administrador);
+      const usuario = new Usuario();
+      usuario.email = user.email;
+      usuario.password = user.password;
+      usuario.tipoUsuario = 'Administrador';
+      usuario.uid = uid;
+      this.RefUsuario.push(usuario);
     }
     if (user.tipoUsuario === '1') {
-      const profesor = new Profesor();
-      profesor.email = user.email;
-      profesor.password = user.password;
-      profesor.tipoUsuario = user.tipoUsuario;
-      this.RefProfesor.push(profesor);
+      const usuario = new Usuario();
+      usuario.email = user.email;
+      usuario.password = user.password;
+      usuario.tipoUsuario = 'Profesor';
+      usuario.uid = uid;
+      this.RefUsuario.push(usuario);
     }
     if (user.tipoUsuario === '2') {
-      const alumno = new Alumno();
-      alumno.email = user.email;
-      alumno.password = user.password;
-      alumno.tipoUsuario = user.tipoUsuario;
-      this.RefAlumno.push(alumno);
+      const usuario = new Usuario();
+      usuario.email = user.email;
+      usuario.password = user.password;
+      usuario.tipoUsuario = 'Alumno';
+      usuario.uid = user.uid;
+      this.RefUsuario.push(usuario);
     }
   }
 
-  createAdministraor(administraor: Administrador): void {
-    this.RefAdministrador.push(administraor);
-  }
 }

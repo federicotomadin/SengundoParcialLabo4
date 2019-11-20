@@ -28,12 +28,6 @@ export class RegistroComponent implements OnInit {
     this.usuario = new Usuario();
   }
 
-  CreareUsuario(frm) {
-      this.usuarioService.createUsuario(frm.value);
-
-    // this.authUser.CrearUsuario(frm.value);
-}
-
 ngSubmit(form: NgForm) {
 
   if (form.invalid) { return; }
@@ -45,8 +39,7 @@ ngSubmit(form: NgForm) {
       timer: 1500
     });
     // Swal.showLoading();
-  this.usuarioService.createUsuario(form.value);
-  // this.authUser.CrearUsuario(this.usuario);
+  this.authUser.CrearUsuario(form.value);
   this.router.navigate(['/Login']);
 
   }

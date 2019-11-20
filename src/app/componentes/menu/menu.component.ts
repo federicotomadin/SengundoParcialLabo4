@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../../servicios/auth.service';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -10,13 +10,15 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class MenuComponent implements OnInit {
 
-  public email: string;
+ public email = 'email';
 
   constructor(private authUser: AuthService, private router: Router, private afAuth: AngularFireAuth) {
-   this.email = this.afAuth.auth.currentUser.email;
-   }
+    this.email = afAuth.auth.currentUser.email;
+  }
+
 
   ngOnInit() {
+
   }
 
   SalirDeLaSesion() {

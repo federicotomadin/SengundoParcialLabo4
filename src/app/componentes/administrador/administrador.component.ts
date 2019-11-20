@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
-import { Materia } from 'src/app/clases/Materia';
+import { Materia } from '../../clases/Materia';
 
 
 @Component({
