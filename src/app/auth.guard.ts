@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
 
   constructor(private auth: AuthService, private userServicie: UsuariosService,
               private router: Router,  private afAuth: AngularFireAuth, private db: AngularFireDatabase ) {}
- 
+
   private uid;
 
   canActivate(): boolean {
@@ -26,31 +26,38 @@ export class AuthGuard implements CanActivate {
     });
 
     this.db.list('/Usuario').valueChanges()
-    .subscribe( usuario => {
-      if (usuario[0].uid == this.uid) {
-        if (usuario[0].tipoUsuario == 'Administrador') {
-             return true;
-        }
-        if (usuario[0].tipoUsuario == 'Profesor') {
-          Swal.fire({
-            allowOutsideClick: false,
-            icon: 'error',
-            text: 'Credenciales Incorrectas',
-            timer: 1000
-           });
-          this.router.navigate(['/Login']);
-        }
-        if (usuario[0].tipoUsuario == 'Alumno') {
-          Swal.fire({
-            allowOutsideClick: false,
-            icon: 'error',
-            text: 'Credenciales Incorrectas',
-            timer: 1000
-           });
-          this.router.navigate(['/Login']);
-        }
-      }
-        });
+      .forEach( element => {
+
+        if (element.uid === this.uid) {
+
+          if (element.tipoUsuario === 'Administrador') {
+
+            return true;
+          }
+
+          if (element.tipoUsuario === 'Profesor') {
+              Swal.fire({
+                allowOutsideClick: false,
+                icon: 'error',
+                text: 'Credenciales Incorrectas',
+                timer: 1000
+               });
+              this.router.navigate(['/Login']);
+            }
+
+          if (element.tipoUsuario === 'Alumno') {
+              Swal.fire({
+                allowOutsideClick: false,
+                icon: 'error',
+                text: 'Credenciales Incorrectas',
+                timer: 1000
+               });
+              this.router.navigate(['/Login']);
+            }
+          }
+      });
     return true;
+    }
+
 }
-}
+
