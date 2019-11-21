@@ -27,11 +27,13 @@ import { ProfesorComponent } from './componentes/profesor/profesor.component';
 import { MateriaComponent } from './componentes/materia/materia.component';
 import { ErrorComponent } from './componentes/error/error.component';
 import { AuthService } from './servicios/auth.service';
-import { ɵNgClassImplProvider__POST_R3__ } from '@angular/common';
 import { MiCaptchaComponent } from './utils/mi-captcha/mi-captcha.component';
 import { QRCodeModule } from 'angular2-qrcode';
 import { UtilsModule } from './utils/utils';
 import { MenuComponent } from './componentes/menu/menu.component';
+import { AuthAlumnoGuard } from './auth-alumno.guard';
+import { AuthProfesorGuard } from './auth-profesor.guard';
+import { AuthGuardAdministrador } from './auth.guard';
 
 
 
@@ -61,7 +63,7 @@ import { MenuComponent } from './componentes/menu/menu.component';
     QRCodeModule,
     UtilsModule
   ],
-  providers: [AuthService, FirebaseStorageService, MateriasService, UsuariosService],
+  providers: [AuthService, FirebaseStorageService, MateriasService, UsuariosService, AuthAlumnoGuard, AuthProfesorGuard, AuthGuardAdministrador],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

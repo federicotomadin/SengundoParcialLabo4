@@ -8,7 +8,9 @@ import { ProfesorComponent } from './componentes/profesor/profesor.component';
 import { AlumnoComponent } from './componentes/alumno/alumno.component';
 import { AdministradorComponent } from './componentes/administrador/administrador.component';
 import { ErrorComponent } from './componentes/error/error.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuardAdministrador } from './auth.guard';
+import { AuthAlumnoGuard } from './auth-alumno.guard';
+import { AuthProfesorGuard } from './auth-profesor.guard';
 
 
 // import { PrincipalComponent } from '../componentes/principal/principal.component';
@@ -29,12 +31,13 @@ import { AuthGuard } from './auth.guard';
 
 const MiRuteo = [
   {path: '' , component: LoginComponent},
-  {path: 'Login' , component: LoginComponent, canActivate: [AuthGuard]},
+  {path: 'Login' , component: LoginComponent},
   {path: 'Registro' , component: RegistroComponent},
-  {path: 'Administrador' , component: AdministradorComponent, canActivate: [AuthGuard]},
-  {path: 'Profesor' , component: ProfesorComponent},
-  {path: 'Materia' , component: MateriaComponent},
-  {path: 'Alumno' , component: AlumnoComponent},
+  {path: 'Administrador' , component: AdministradorComponent, canActivate: [AuthGuardAdministrador]},
+  {path: 'Profesor' , component: ProfesorComponent, canActivate: [AuthProfesorGuard]},
+  {path: 'Materia' , component: MateriaComponent, canActivate: [AuthAlumnoGuard]},
+  {path: 'Alumno' , component: AlumnoComponent, canActivate: [AuthAlumnoGuard]},
+
 
   // , canActivate: [ AuthGuard ]
   // { path: 'Juegos' , component: JuegosComponent,

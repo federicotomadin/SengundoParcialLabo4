@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   recordarme = false;
   usuario: Usuario;
-  captchaLogin = 'vacio';
+  captchaLogin = 'lleno';
   vCardData = 'codigo qr vacio';
   authError: any;
   logueado: string;
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.usuario = new Usuario();
 
     if (localStorage.getItem('email')) {
-      this.captchaLogin = 'vacio';
+      // this.captchaLogin = 'vacio';
       this.usuario.email = localStorage.getItem('email');
       this.recordarme = true;
     }
@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit {
   }
 
 
-  ReconociendoCaptcha(cap: string) {
-    this.captchaLogin = cap;
-  }
+  // ReconociendoCaptcha(cap: string) {
+  //   this.captchaLogin = cap;
+  // }
 
   Login(form: NgForm) {
 
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
   return;
 }
 
-    Swal.fire({
+  Swal.fire({
  allowOutsideClick: false,
  icon: 'info',
  text: 'Ingresando...',

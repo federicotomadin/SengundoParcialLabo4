@@ -46,7 +46,7 @@ export class UsuariosService {
       usuario.email = user.email;
       usuario.password = user.password;
       usuario.tipoUsuario = 'Alumno';
-      usuario.uid = user.uid;
+      usuario.uid = uid;
       this.RefUsuario.push(usuario);
     }
   }

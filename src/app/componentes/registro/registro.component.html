@@ -45,7 +45,7 @@
                 <label><b>Tipo de Usuario</b></label><br>
                 <span *ngIf="f.submitted && f.controls['tipoUsuario'].errors" class="text-danger animated fadeIn">Tipo de usuario es obligatorio</span>
                 <select class="custom-select custom-select-lg col-md-3" name="tipoUsuario" [(ngModel)]="usuario.TipoUsuario" required>
-                        <option value="0" >Administrador</option>
+                        <option value="0">Administrador</option>
                         <option value="1">Profesor</option>
                         <option value="2">Alumno</option>
                 </select><br>
